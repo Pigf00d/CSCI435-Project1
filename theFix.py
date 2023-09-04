@@ -6,8 +6,11 @@ import os
 #Change path to whichever directory the xml and png files are in
 path = r"C:\Users\theso\CSCI435\CSCI435-Project1\Programming-Assignment-Data"
 
+#Change resultsPath to whichever directory the annotated png files should be placed in
+resultsPath = r"C:\Users\theso\CSCI435\CSCI435-Project1\annotatedScreenshots"
 
 
+#creating list of file names in target directory
 xmlfiles = []
 for filename in os.listdir(path):
     if filename.endswith(".xml"):
@@ -15,7 +18,7 @@ for filename in os.listdir(path):
 
 
 for xmlfile in xmlfiles:
-    #print(type(item), item)
+    #this is the full file path for each xmlfile
     curFile =  path + "\\" + xmlfile
 
     with open(curFile, "rb") as f:
@@ -36,7 +39,7 @@ for xmlfile in xmlfiles:
             addition = addition.split(",")
             bounds.append(addition[:-1])
 
-
+    #reading in image
     img = cv2.imread(curFile[:-4] + ".png")
 
 
@@ -48,9 +51,9 @@ for xmlfile in xmlfiles:
 
         cv2.rectangle(img, (int(item[0]), int(item[1])), (int(item[2]), int(item[3])), (0, 255, 255), 5)
 
-        
-
-    cv2.imwrite(r"C:\Users\theso\CSCI435\CSCI435-Project1\annotatedScreenshots\\" + xmlfile[:-4] + ".png", img)
+    
+    #writing new image
+    cv2.imwrite(resultsPath + "\\" + xmlfile[:-4] + ".png", img)
 
 
 
